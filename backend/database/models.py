@@ -12,6 +12,31 @@ database_path = os.environ['DATABASE_URL'] \
     else "postgresql://{}:{}@{}/{}".format(
         DB_USERNAME, DB_PASSWORD, 'localhost:5432', database_name)
 
+'''
+setup_db(app)
+    binds a flask application and a SQLAlchemy service
+'''
+def setup_db(app, database_path=database_path):
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db.app = app
+    db.init_app(app)
+    db.create_all()
+
+'''
+db_drop_and_create_all()
+    drops the database tables and starts fresh
+    can be used to initialize a clean database
+    !!NOTE you can change the database_filename variable to have multiple verisons of a database
+'''
+def db_drop_and_create_all():
+    db.drop_all()
+    db.create_all()    
+# -------------------------------------------------------------------------- #
+# Models.
+# -------------------------------------------------------------------------- #
+
+
 class Account(db.Model):
     __tablename__ = 'accounts'
     id = db.Column(db.Integer, primary_key = True)
@@ -21,7 +46,6 @@ class Cost_type(db.Model):
     __tablename__ = 'cost_types'
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(), nullable=False)
-        
 
 class Cost_item(db.Model):
     __tablename__ = 'cost_items'
