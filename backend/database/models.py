@@ -91,10 +91,11 @@ class  Monetary_circulation(db.Model):
     def format(self):
         return {
             'id': self.id,
+            'date_time': self.date_time,
             'cost_item_id': self.cost_item_id,
             'notes': self.notes,
-            'income_sum': self.income_sum,
-            'spending_sum': self.spending_sum,
+            'income_sum': str(self.income_sum),
+            'spending_sum': str(self.spending_sum),
             'currency_id': self.currency_id,
             'account_id': self.account_id,
         }

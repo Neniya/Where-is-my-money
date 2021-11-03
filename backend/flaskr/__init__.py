@@ -9,7 +9,9 @@ from models import (
     setup_db,
     db,
     Cost_type,
-    Cost_item
+    Cost_item,
+    Monetary_circulation,
+    Currency
 )
 
 def create_app(test_config=None):
@@ -50,7 +52,34 @@ def create_app(test_config=None):
         return jsonify({
             'success': True,
             'cost_types': formatted_cost_items
-        })    
+        })   
+
+    @app.route('/circulations')
+    def get_monetary_circulations():
+        # monetary_circulations = Monetary_circulation.query.all()
+        monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency).join(Cost_item).join(Currency).\
+            filter(
+                Monetary_circulation.cost_item_id == Cost_item.id,
+                Monetary_circulation.currency_id == Currency.id,
+            ).\
+            all()
+          
+        #  formatted_monetary_circulations= [monetary_circulation.format() for monetary_circulation in monetary_circulations] 
+        
+        return jsonify({
+            'success': True,
+            'monetary_circulations': [{
+                'id': monetary_circulation.id,
+                'date': monetary_circulation.date_time.strftime("%d.%m.%Y, %H:%M"),
+                'cost_item': cost_item.name,
+                'cost_type': cost_item.type.name,
+                'notes': monetary_circulation.notes,
+                'income_sum': str(monetary_circulation.income_sum),
+                'spending_sum': str(monetary_circulation.spending_sum),
+                'currency': currency.name,
+                'account_id': monetary_circulation.account_id,
+            } for monetary_circulation, cost_item, currency in monetary_circulations]
+        })       
 
     return app
 
