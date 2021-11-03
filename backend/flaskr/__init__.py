@@ -7,7 +7,9 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from models import (
     setup_db,
-    db, Cost_type
+    db,
+    Cost_type,
+    Cost_item
 )
 
 def create_app(test_config=None):
@@ -32,7 +34,7 @@ def create_app(test_config=None):
     #    return render_template('../frontend/public/index.html')    
 
     @app.route('/costtypes')
-    def get_cost_type():
+    def get_cost_types():
         cost_types = Cost_type.query.all()
         print(cost_types)
         formatted_cost_types= [cost_type.format() for cost_type in cost_types]
@@ -41,6 +43,14 @@ def create_app(test_config=None):
             'cost_types': formatted_cost_types
         })
         
+    @app.route('/costitems')
+    def get_cost_items():
+        cost_items = Cost_item.query.all()
+        formatted_cost_items= [cost_item.format() for cost_item in cost_items]
+        return jsonify({
+            'success': True,
+            'cost_types': formatted_cost_items
+        })    
 
     return app
 

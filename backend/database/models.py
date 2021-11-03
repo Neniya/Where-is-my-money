@@ -65,6 +65,13 @@ class Cost_item(db.Model):
     type_id = db.Column(db.Integer, db.ForeignKey('cost_types.id'), nullable = False)
     circulations = db.relationship('Monetary_circulation', backref='cost_item', lazy = True)
 
+    def format(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'spending': self.spending,
+        }
+
 class Currency(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String, nullable = False)
