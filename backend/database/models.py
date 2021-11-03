@@ -49,7 +49,13 @@ class Cost_type(db.Model):
     __tablename__ = 'cost_types'
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(), nullable=False)
-    items = db.relationship('cost_items', backref='type', lazy = True)
+    items = db.relationship('Cost_item', backref='type', lazy = True)
+    
+    def format(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
 
 class Cost_item(db.Model):
     __tablename__ = 'cost_items'
@@ -67,7 +73,7 @@ class Currency(db.Model):
 
 class  Monetary_circulation(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    cost_item_id = db.ForeignKey('cost_items.id', nullable = False)
+    cost_item_id = db.Column(db.ForeignKey('cost_items.id'), nullable = False)
     notice = db.Column(db.String, nullable = True)
     income = db.Column(db.Numeric(10,2))
     spending = db.Column(db.Numeric(10,2))
