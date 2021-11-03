@@ -81,8 +81,19 @@ class Currency(db.Model):
 class  Monetary_circulation(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     cost_item_id = db.Column(db.ForeignKey('cost_items.id'), nullable = False)
-    notice = db.Column(db.String, nullable = True)
-    income = db.Column(db.Numeric(10,2))
-    spending = db.Column(db.Numeric(10,2))
+    notes = db.Column(db.String, nullable = True)
+    income_sum = db.Column(db.Numeric(10,2))
+    spending_sum = db.Column(db.Numeric(10,2))
     currency_id = db.Column(db.ForeignKey('currency.id'), nullable = False)
     account_id = db.Column(db.ForeignKey('accounts.id'), nullable = False)
+
+    def format(self):
+        return {
+            'id': self.id,
+            'cost_item_id': self.cost_item_id,
+            'notes': self.notes,
+            'income_sum': self.income_sum,
+            'spending_sum': self.spending_sum,
+            'currency_id': self.currency_id,
+            'account_id': self.account_id,
+        }
