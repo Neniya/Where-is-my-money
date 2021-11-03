@@ -80,10 +80,11 @@ class Currency(db.Model):
 
 class  Monetary_circulation(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    date_time = db.Column(db.DateTime) 
     cost_item_id = db.Column(db.ForeignKey('cost_items.id'), nullable = False)
     notes = db.Column(db.String, nullable = True)
-    income_sum = db.Column(db.Numeric(10,2))
-    spending_sum = db.Column(db.Numeric(10,2))
+    income_sum = db.Column(db.Numeric(10,2), default = 0.00)
+    spending_sum = db.Column(db.Numeric(10,2), default = 0.00)
     currency_id = db.Column(db.ForeignKey('currency.id'), nullable = False)
     account_id = db.Column(db.ForeignKey('accounts.id'), nullable = False)
 
