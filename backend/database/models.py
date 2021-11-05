@@ -48,6 +48,9 @@ class Account(db.Model):
             'id': self.id,
             'name': self.name,
         }
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()    
 
 
 class Cost_type(db.Model):

@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append('database')
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, abort
 
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -47,8 +47,34 @@ def create_app(test_config=None):
             'cost_types': formatted_accounts
         })
 
-     
+    # create an account
+    @app.route('/accounts/add', methods=['POST'])
+    def create_account():
+       
+        new_account = request.json.get('name')
+        print(new_account)
+        if (new_account is None):
+            abort(422)
+        try:
+            # POST
+            
+            account = Account(
+                name=new_account)
+            print(account.name)
+           
+            account.insert()
+            print("1")
+            selection = Account.query.order_by('id').all()
 
+            return jsonify({
+                'success': True,
+                'created': account.id,
+                'total_accounts': len(selection)
+            })
+        except BaseException:
+            abort(404)
+
+        
     @app.route('/costtypes')
     def get_cost_types():
         cost_types = Cost_type.query.all()
