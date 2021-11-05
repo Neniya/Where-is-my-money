@@ -43,6 +43,11 @@ class Account(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(), nullable=False)
     circulations = db.relationship('Monetary_circulation', backref='account', lazy = True)
+    def format(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
 
 
 class Cost_type(db.Model):

@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 from models import (
     setup_db,
     db,
+    Account,
     Cost_type,
     Cost_item,
     Monetary_circulation,
@@ -34,6 +35,19 @@ def create_app(test_config=None):
     #@app.route('/')
     #def index():
     #    return render_template('../frontend/public/index.html')    
+
+    # get all accounts
+    @app.route('/accounts')
+    def get_accounts():
+        accounts = Account.query.all()
+        
+        formatted_accounts = [account.format() for account in accounts]
+        return jsonify({
+            'success': True,
+            'cost_types': formatted_accounts
+        })
+
+     
 
     @app.route('/costtypes')
     def get_cost_types():
