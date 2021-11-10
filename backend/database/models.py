@@ -64,6 +64,9 @@ class Cost_type(db.Model):
             'id': self.id,
             'name': self.name,
         }
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()    
 
 class Cost_item(db.Model):
     __tablename__ = 'cost_items'

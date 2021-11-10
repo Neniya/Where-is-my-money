@@ -85,6 +85,32 @@ def create_app(test_config=None):
             'cost_types': formatted_cost_types
         })
         
+    # create a cost type
+    @app.route('/costtypes/add', methods=['POST'])
+    def create_cost_type():
+       
+        new_cost_type= request.json.get('name')
+        
+        if (new_cost_type is None):
+            abort(422)
+        try:
+            # POST
+            
+            cost_type = Cost_type(
+                name=new_cost_type)
+           
+            cost_type.insert()
+            print("1")
+            selection = Cost_type.query.order_by('id').all()
+
+            return jsonify({
+                'success': True,
+                'created': cost_type.id,
+                'total_cost_type': len(selection)
+            })
+        except BaseException:
+            abort(404)    
+        
     @app.route('/costitems')
     def get_cost_items():
         cost_items = Cost_item.query.all()
