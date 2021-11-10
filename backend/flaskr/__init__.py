@@ -52,16 +52,12 @@ def create_app(test_config=None):
     def create_account():
        
         new_account = request.json.get('name')
-        print(new_account)
         if (new_account is None):
             abort(422)
         try:
-            # POST
-            
+            # POST     
             account = Account(
                 name=new_account)
-            print(account.name)
-           
             account.insert()
             print("1")
             selection = Account.query.order_by('id').all()
@@ -84,7 +80,7 @@ def create_app(test_config=None):
             'success': True,
             'cost_types': formatted_cost_types
         })
-        
+
     # create a cost type
     @app.route('/costtypes/add', methods=['POST'])
     def create_cost_type():
@@ -94,11 +90,9 @@ def create_app(test_config=None):
         if (new_cost_type is None):
             abort(422)
         try:
-            # POST
-            
+            # POST     
             cost_type = Cost_type(
                 name=new_cost_type)
-           
             cost_type.insert()
             print("1")
             selection = Cost_type.query.order_by('id').all()
