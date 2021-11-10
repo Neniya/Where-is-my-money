@@ -59,7 +59,6 @@ def create_app(test_config=None):
             account = Account(
                 name=new_account)
             account.insert()
-            print("1")
             selection = Account.query.order_by('id').all()
 
             return jsonify({
@@ -94,7 +93,6 @@ def create_app(test_config=None):
             cost_type = Cost_type(
                 name=new_cost_type)
             cost_type.insert()
-            print("1")
             selection = Cost_type.query.order_by('id').all()
 
             return jsonify({
@@ -112,7 +110,43 @@ def create_app(test_config=None):
         return jsonify({
             'success': True,
             'cost_types': formatted_cost_items
-        })   
+        })
+
+    # create a cost item
+    @app.route('/costitems/add', methods=['POST'])
+    def create_cost_item():
+       
+        new_cost_item = request.json.get('name')
+        print(new_cost_item) 
+        new_item_type_id = request.json.get('type_id')
+        print(new_item_type_id) 
+        new_item_spending = request.json.get('spending')=="true"
+        # if new_item_spending == "true":
+        #     new_item_spending = True
+        # else: 
+        #     new_item_spending = False   
+        # new_item_spending = new_item_spending == "true" ? True : False
+
+        print(new_item_spending) 
+        
+        if (new_cost_item is None or new_item_type_id is None):
+            abort(422)
+        try:
+            # POST     
+            cost_item = Cost_item(  
+                name = new_cost_item,
+                type_id = int(new_item_type_id),
+                spending = new_item_spending)
+            cost_item.insert()
+            selection = Cost_item.query.order_by('id').all()
+
+            return jsonify({
+                'success': True,
+                'created': cost_item.id,
+                'total_cost_item': len(selection)
+            })
+        except BaseException:
+            abort(404)       
 
     @app.route('/circulations')
     def get_monetary_circulations():

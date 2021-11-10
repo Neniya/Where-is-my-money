@@ -81,7 +81,12 @@ class Cost_item(db.Model):
             'id': self.id,
             'name': self.name,
             'spending': self.spending,
+            
         }
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()     
 
 class Currency(db.Model):
     id = db.Column(db.Integer, primary_key = True)
