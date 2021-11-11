@@ -241,6 +241,36 @@ def create_app(test_config=None):
         except BaseException:
             abort(404)        
 
+    # Change a circulation
+    @app.route('/circulations/<int:circulation_id>', methods=['PATCH'])
+    def update_circulation(circulation_id):
+        error = 422
+        try:
+            circulation = Monetary_circulation.query.filter(Monetary_circulation.id == str(circulation_id)).one_or_none()
+            ''' responds with a 404 error if <id> is not found'''
+            if circulation is None:
+                error = 404
+                abort(error)
+
+            ''' update the corresponding row for <id>'''
+            body = request.get_json()
+            circulation.date_time = body.get('date')
+            circulation.cost_item_id = body.get('cost_item_id')
+            circulation.notes = body.get('notes')
+            circulation.income_sum = body.get('income_sum')
+            circulation.spending_sum = body.get('spending_sum')
+            circulation.currency_id = body.get('currency_id')
+    
+        
+            circulation.update()
+
+            return jsonify({
+                'success': True,
+                'circulation_id': circulation_id
+            }), 200
+        except Exception:
+            abort(error)
+
     return app
 
 if __name__ == '__main__':
