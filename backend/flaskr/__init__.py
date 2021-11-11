@@ -150,7 +150,6 @@ def create_app(test_config=None):
 
     @app.route('/circulations')
     def get_monetary_circulations():
-        # monetary_circulations = Monetary_circulation.query.all()
         monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency).join(Cost_item).join(Currency).\
             filter(
                 Monetary_circulation.cost_item_id == Cost_item.id,
@@ -158,8 +157,6 @@ def create_app(test_config=None):
             ).\
             all()
           
-        #  formatted_monetary_circulations= [monetary_circulation.format() for monetary_circulation in monetary_circulations] 
-        
         return jsonify({
             'success': True,
             'monetary_circulations': [{
@@ -173,7 +170,46 @@ def create_app(test_config=None):
                 'currency': currency.name,
                 'account_id': monetary_circulation.account_id,
             } for monetary_circulation, cost_item, currency in monetary_circulations]
-        })       
+        })   
+
+    # POST a new circulation
+
+    @app.route('/circulations/add', methods=['POST'])
+    def create_circulation():
+        # get data for new circulation
+        new_date = request.json.get('date')
+        new_cost_item_id = request.json.get('cost_item_id')
+        new_notes = request.json.get('notes')
+        new_income_sum = request.json.get('income_sum')
+        new_spending_sum = request.json.get('spending_sum')
+        new_currency_id = request.json.get('currency_id')
+        new_account_id = request.json.get('account_id')
+        
+        if (new_date is None or new_cost_item_id is None
+                or new_account_id is None):
+            abort(422)
+        try:
+            # POST
+            circulation = Monetary_circulation(
+                date_time = new_date,
+                cost_item_id = int(new_cost_item_id),
+                notes = new_notes,
+                income_sum = float(new_income_sum),
+                spending_sum = float(new_spending_sum),
+                currency_id = int(new_currency_id),
+                account_id = int(new_account_id),
+                )
+
+            circulation.insert()
+            selection = Monetary_circulation.query.order_by('id').all()
+
+            return jsonify({
+                'success': True,
+                'created': circulation.id,
+                'total_circulations': len(selection)
+            })
+        except BaseException:
+            abort(404)        
 
     return app
 

@@ -81,7 +81,6 @@ class Cost_item(db.Model):
             'id': self.id,
             'name': self.name,
             'spending': self.spending,
-            
         }
 
     def insert(self):
@@ -115,3 +114,7 @@ class  Monetary_circulation(db.Model):
             'currency_id': self.currency_id,
             'account_id': self.account_id,
         }
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()    
