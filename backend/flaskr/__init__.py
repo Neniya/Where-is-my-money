@@ -15,6 +15,15 @@ from models import (
     Currency
 )
 
+CIRCULATIONS_PER_PAGE = 30
+
+def paginate_circulations(request, selection):
+    page = request.args.get('page', 1, type=int)
+    start = (page - 1) * CIRCULATIONS_PER_PAGE
+    end = start + CIRCULATIONS_PER_PAGE
+    print("pag")
+    return selection[start:end]
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
@@ -271,7 +280,52 @@ def create_app(test_config=None):
         except Exception:
             abort(error)
 
+    # DELETE a circulation
+    @app.route('/circulations/<int:account_id>/<int:circulation_id>', methods=['DELETE'])
+    def delete_circulation(circulation_id, account_id):
+        try:
+            circulation = Monetary_circulation.query.filter(
+                Monetary_circulation.id == circulation_id).one_or_none()
+            # error 404. if there isn't any circulation with circulation_id
+            if circulation is None:
+                abort(404)
+              
+            # delete
+            circulation.delete()
+
+            # renue query - get list of monetary circulations without deleted one
+            # paginate monetary circulations
+            monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency).join(Cost_item).join(Currency).\
+            filter(
+                Monetary_circulation.account_id == str(account_id),
+                Monetary_circulation.cost_item_id == Cost_item.id,
+                Monetary_circulation.currency_id == Currency.id,
+            ).\
+            all()
+            current_circulations = paginate_circulations(request, monetary_circulations)     
+
+            return jsonify({
+                'success': True,
+                'deleted': circulation_id,
+                'total_circulations': len(monetary_circulations),
+                'monetary_circulations': [{
+                'id': monetary_circulation.id,
+                'date': monetary_circulation.date_time.strftime("%d.%m.%Y, %H:%M"),
+                'cost_item': cost_item.name,
+                'cost_type': cost_item.type.name,
+                'notes': monetary_circulation.notes,
+                'income_sum': str(monetary_circulation.income_sum),
+                'spending_sum': str(monetary_circulation.spending_sum),
+                'currency': currency.name,
+                'account_id': monetary_circulation.account_id,
+            } for monetary_circulation, cost_item, currency in current_circulations]})
+        except BaseException:
+            abort(422)    
+
     return app
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
+
+
+
