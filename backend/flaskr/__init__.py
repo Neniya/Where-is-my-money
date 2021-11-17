@@ -181,9 +181,9 @@ def create_app(test_config=None):
             } for monetary_circulation, cost_item, currency in monetary_circulations]
         })   
 
-    # GET circilations for the user
+    # GET circilations for the account
     @app.route('/circulations/<int:account_id>')
-    def get_user_monetary_circulations(account_id):
+    def get_account_monetary_circulations(account_id):
 
         # if account doesn't exist
         if Account.query.get(account_id) is None:
