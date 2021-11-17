@@ -269,6 +269,7 @@ def create_app(test_config=None):
             circulation.income_sum = body.get('income_sum')
             circulation.spending_sum = body.get('spending_sum')
             circulation.currency_id = body.get('currency_id')
+            circulation.account_id = body.get('account_id')
     
         
             circulation.update()
