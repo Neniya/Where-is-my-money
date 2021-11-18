@@ -182,7 +182,38 @@ def create_app(test_config=None):
             } for monetary_circulation, cost_item, currency in monetary_circulations]
         })   
 
-   
+    # GET circilations for the user
+    @app.route('/circulations/<int:user_id>')
+    def get_account_monetary_circulations(user_id):
+
+        # if account doesn't exist
+        if Account.query.get(user_id) is None:
+            abort(404)
+
+        monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency).join(Cost_item).join(Currency).\
+            filter(
+                Monetary_circulation.user_id == str(user_id),
+                Monetary_circulation.cost_item_id == Cost_item.id,
+                Monetary_circulation.currency_id == Currency.id,
+            ).\
+            all()
+          
+        return jsonify({
+            'success': True,
+            'monetary_circulations': [{
+                'id': monetary_circulation.id,
+                'date': monetary_circulation.date_time.strftime("%d.%m.%Y, %H:%M"),
+                'cost_item': cost_item.name,
+                'cost_type': cost_item.type.name,
+                'notes': monetary_circulation.notes,
+                'income_sum': str(monetary_circulation.income_sum),
+                'spending_sum': str(monetary_circulation.spending_sum),
+                'currency': currency.name,
+                'account_id': monetary_circulation.account_id,
+                'user_id': monetary_circulation.user_id,
+            } for monetary_circulation, cost_item, currency in monetary_circulations]
+        })   
+  
 
     # GET circilations for the account
     # @app.route('/circulations/<int:account_id>')
