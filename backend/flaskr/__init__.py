@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 from models import (
     setup_db,
     db,
+    User,
     Account,
     Cost_type,
     Cost_item,
@@ -44,6 +45,17 @@ def create_app(test_config=None):
     #@app.route('/')
     #def index():
     #    return render_template('../frontend/public/index.html')    
+
+    # get all users
+    @app.route('/users')
+    def get_users():
+        users = User.query.all()
+        
+        formatted_users = [user.format() for user in users]
+        return jsonify({
+            'success': True,
+            'users': formatted_users
+        })
 
     # get all accounts
     @app.route('/accounts')
