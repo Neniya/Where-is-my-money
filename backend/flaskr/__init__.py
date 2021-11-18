@@ -57,6 +57,28 @@ def create_app(test_config=None):
             'users': formatted_users
         })
 
+    # create a user
+    @app.route('/users/add', methods=['POST'])
+    def create_user():
+       
+        new_user = request.json.get('name')
+        if (new_user is None):
+            abort(422)
+        try:
+            # POST     
+            user = User(
+                name=new_user)
+            user.insert()
+            selection = User.query.order_by('id').all()
+
+            return jsonify({
+                'success': True,
+                'created': user.id,
+                'total_users': len(selection)
+            })
+        except BaseException:
+            abort(404)
+    
     # get all accounts
     @app.route('/accounts')
     def get_accounts():
@@ -67,6 +89,7 @@ def create_app(test_config=None):
             'success': True,
             'cost_types': formatted_accounts
         })
+        
 
     # create an account
     @app.route('/accounts/add', methods=['POST'])
