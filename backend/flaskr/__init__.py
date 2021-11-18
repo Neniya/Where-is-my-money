@@ -322,8 +322,8 @@ def create_app(test_config=None):
             abort(error)
 
     # DELETE a circulation
-    @app.route('/circulations/<int:account_id>/<int:circulation_id>', methods=['DELETE'])
-    def delete_circulation(circulation_id, account_id):
+    @app.route('/circulations/<int:user_id>/<int:circulation_id>', methods=['DELETE'])
+    def delete_circulation(circulation_id, user_id):
         try:
             circulation = Monetary_circulation.query.filter(
                 Monetary_circulation.id == circulation_id).one_or_none()
@@ -338,7 +338,7 @@ def create_app(test_config=None):
             # paginate monetary circulations
             monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency).join(Cost_item).join(Currency).\
             filter(
-                Monetary_circulation.account_id == str(account_id),
+                Monetary_circulation.user_id == str(user_id),
                 Monetary_circulation.cost_item_id == Cost_item.id,
                 Monetary_circulation.currency_id == Currency.id,
             ).\
