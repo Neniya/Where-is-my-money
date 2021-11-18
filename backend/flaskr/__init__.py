@@ -178,6 +178,7 @@ def create_app(test_config=None):
                 'spending_sum': str(monetary_circulation.spending_sum),
                 'currency': currency.name,
                 'account_id': monetary_circulation.account_id,
+                'user_id': monetary_circulation.user_id,
             } for monetary_circulation, cost_item, currency in monetary_circulations]
         })   
 
@@ -209,6 +210,7 @@ def create_app(test_config=None):
                 'spending_sum': str(monetary_circulation.spending_sum),
                 'currency': currency.name,
                 'account_id': monetary_circulation.account_id,
+                'user_id': monetary_circulation.user_id,
             } for monetary_circulation, cost_item, currency in monetary_circulations]
         })   
 
@@ -223,9 +225,10 @@ def create_app(test_config=None):
         new_spending_sum = request.json.get('spending_sum')
         new_currency_id = request.json.get('currency_id')
         new_account_id = request.json.get('account_id')
+        new_user_id = request.json.get('user_id')
         
         if (new_date is None or new_cost_item_id is None
-                or new_account_id is None):
+                or new_account_id is None or new_user_id is None):
             abort(422)
         try:
             # POST
@@ -237,6 +240,7 @@ def create_app(test_config=None):
                 spending_sum = float(new_spending_sum),
                 currency_id = int(new_currency_id),
                 account_id = int(new_account_id),
+                user_id = int(new_user_id),
                 )
 
             circulation.insert()
@@ -263,6 +267,7 @@ def create_app(test_config=None):
 
             ''' update the corresponding row for <id>'''
             body = request.get_json()
+            print(body)
             circulation.date_time = body.get('date')
             circulation.cost_item_id = body.get('cost_item_id')
             circulation.notes = body.get('notes')
@@ -270,6 +275,8 @@ def create_app(test_config=None):
             circulation.spending_sum = body.get('spending_sum')
             circulation.currency_id = body.get('currency_id')
             circulation.account_id = body.get('account_id')
+            circulation.user_id = body.get('user_id')
+            print(circulation.__dict__)
     
         
             circulation.update()
@@ -319,6 +326,7 @@ def create_app(test_config=None):
                 'spending_sum': str(monetary_circulation.spending_sum),
                 'currency': currency.name,
                 'account_id': monetary_circulation.account_id,
+                'user_id': monetary_circulation.user_id,
             } for monetary_circulation, cost_item, currency in current_circulations]})
         except BaseException:
             abort(422)    

@@ -38,6 +38,20 @@ def db_drop_and_create_all():
 # -------------------------------------------------------------------------- #
 
 
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(), nullable=False)
+    circulations = db.relationship('Monetary_circulation', backref='user', lazy = True)
+    def format(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
+    def insert(self):
+        db.session.add(self)
+        db.session.commit() 
+
 class Account(db.Model):
     __tablename__ = 'accounts'
     id = db.Column(db.Integer, primary_key = True)
@@ -102,6 +116,8 @@ class  Monetary_circulation(db.Model):
     spending_sum = db.Column(db.Numeric(10,2), default = 0.00)
     currency_id = db.Column(db.ForeignKey('currency.id'), nullable = False)
     account_id = db.Column(db.ForeignKey('accounts.id'), nullable = False)
+    user_id = db.Column(db.ForeignKey('users.id'), nullable = False)
+
 
     def format(self):
         return {
@@ -113,6 +129,7 @@ class  Monetary_circulation(db.Model):
             'spending_sum': str(self.spending_sum),
             'currency_id': self.currency_id,
             'account_id': self.account_id,
+            'user_id': self.user_id, 
         }
 
     def insert(self):
