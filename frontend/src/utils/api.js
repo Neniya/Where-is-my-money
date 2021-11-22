@@ -8,6 +8,21 @@ const headers = {
   Authorization: token,
 };
 
+//Get all asers
+export const getAllUsers = async () => {
+  const response = await fetch(`${api}/users`, {
+    metod: 'GET',
+    credentials: 'same-origin',
+    headers,
+  });
+  try {
+    const users = await response.json();
+    return users;
+  } catch (error) {
+    console.log('error', error);
+  }
+};
+
 //Get all of the categories available for the app
 export const getAllCirculations = async () => {
   const response = await fetch(`${api}/circulations`, {
