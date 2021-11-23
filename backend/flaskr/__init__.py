@@ -219,10 +219,10 @@ def create_app(test_config=None):
 
     # GET circilations for the user
     @app.route('/circulations/<int:user_id>')
-    def get_account_monetary_circulations(user_id):
+    def get_user_monetary_circulations(user_id):
 
-        # if account doesn't exist
-        if Account.query.get(user_id) is None:
+        # if user doesn't exist
+        if User.query.get(user_id) is None:
             abort(404)
 
         monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency).join(Cost_item).join(Currency).\
