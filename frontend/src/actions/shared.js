@@ -7,7 +7,7 @@ import { getCirculationsForUser } from './userCirculations';
 export const handleInitialData = () => {
   return (dispatch) => {
     dispatch(showLoading());
-    return getAllUsers.then((users) => {
+    return getAllUsers().then((users) => {
       dispatch(getUsers(users.users));
       dispatch(hideLoading());
     });
