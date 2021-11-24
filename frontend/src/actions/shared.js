@@ -2,6 +2,7 @@ import { getAllUsers } from '../utils/api';
 import { getUsers } from './users';
 import { showLoading, hideLoading } from 'react-redux-loading';
 import { getUserCirculations } from '../utils/api';
+import { getCirculationsForUser } from './userCirculations';
 
 export const handleInitialData = () => {
   return (dispatch) => {
