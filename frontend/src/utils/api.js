@@ -23,7 +23,7 @@ export const getAllUsers = async () => {
   }
 };
 
-//Get all of the categories available for the app
+//Get all of the circulations available for the app
 export const getAllCirculations = async () => {
   const response = await fetch(`${api}/circulations`, {
     metod: 'GET',
@@ -36,4 +36,29 @@ export const getAllCirculations = async () => {
   } catch (error) {
     console.log('error', error);
   }
+};
+
+//Get all of the circulations available for the app
+export const getUserCirculations = async (id) => {
+  const response = await fetch(`${api}/circulations/${id}`, {
+    metod: 'GET',
+    credentials: 'same-origin',
+    headers,
+  });
+  try {
+    const circulations = await response.json();
+    return circulations;
+  } catch (error) {
+    console.log('error', error);
+  }
+};
+
+export const getInitialData = () => {
+  // getAllUsers().then((users) => {
+  //   return users.users;
+  // });
+  return getAllUsers().then((users) => {
+    console.log(users);
+    return users.users;
+  });
 };
