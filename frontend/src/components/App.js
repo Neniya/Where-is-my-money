@@ -1,13 +1,38 @@
 import '../App.css';
-import { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
+import LoadingBar from 'react-redux-loading';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './Login';
 
 function App(props) {
   useEffect(() => {
     props.dispatch(handleInitialData());
-  });
-  return <div className="App"></div>;
+  }, [props]);
+
+  return (
+    <BrowserRouter>
+      <Fragment>
+        {props.loading && <LoadingBar />}
+        <div className="App">
+          <Routes>
+            <Route
+              path="/"
+              exact
+              element={props.loading ? null : <Login />}
+            ></Route>
+          </Routes>
+        </div>
+      </Fragment>
+    </BrowserRouter>
+  );
 }
 
-export default connect()(App);
+function mapStateToProps({ users }) {
+  return {
+    loading: users === {},
+  };
+}
+
+export default connect(mapStateToProps)(App);
