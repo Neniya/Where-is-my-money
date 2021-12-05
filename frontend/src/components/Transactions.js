@@ -7,11 +7,11 @@ const Transactions = (props) => {
       <h1>Where Is My Money</h1>
       <table class="Main_table">
         <tr>
+          <th>Date</th>
           <th>Item</th>
-          <th>Spend</th>
           <th>Sum</th>
           <th>Currency</th>
-          <th>Notice</th>
+          <th>Note</th>
           <th>Account</th>
         </tr>
       </table>
