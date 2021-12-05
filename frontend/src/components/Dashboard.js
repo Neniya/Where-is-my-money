@@ -1,7 +1,8 @@
 import React from 'react';
 import Transactions from './Transactions';
+import { connect } from 'react-redux';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   return (
     <div>
       <Transactions />
@@ -9,4 +10,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default connect()(Dashboard);

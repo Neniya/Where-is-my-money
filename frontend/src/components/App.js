@@ -5,6 +5,7 @@ import { handleInitialData } from '../actions/shared';
 import LoadingBar from 'react-redux-loading';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Login';
+import Dashboard from './Dashboard';
 
 function App(props) {
   useEffect(() => {
@@ -22,6 +23,7 @@ function App(props) {
               exact
               element={props.loading ? null : <Login />}
             ></Route>
+            <Route path="/dashboard" exact element={<Dashboard />} />
           </Routes>
         </div>
       </Fragment>

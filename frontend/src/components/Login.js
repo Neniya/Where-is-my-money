@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { setAuthedUser } from '../actions/authedUser';
+import { useNavigate } from 'react-router-dom';
 
 const Login = (props) => {
   const [userId, setUserId] = useState(null);
+  const history = useNavigate();
 
   const handleUserSubmit = (e) => {
     e.preventDefault();
     const { dispatch } = props;
     dispatch(setAuthedUser(userId));
+    history('/dashboard');
   };
   return (
     <div className="sign-in, center">
