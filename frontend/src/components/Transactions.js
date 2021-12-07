@@ -1,22 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import Transaction from './Transaction';
 
 const Transactions = (props) => {
+  const monetaryCirculations = props.userCirculations.monetary_circulations;
+  console.log(monetaryCirculations);
+
   return (
-    <dir>
+    <div>
       <h1>Where Is My Money</h1>
-      <table class="Main_table">
-        <tr>
-          <th>Date</th>
-          <th>Item</th>
-          <th>Sum</th>
-          <th>Currency</th>
-          <th>Note</th>
-          <th>Account</th>
-        </tr>
+      <table className="Main_table">
+        <tbody>
+          <tr className="table_header">
+            <th>Date</th>
+            <th>Item</th>
+            <th>Sum</th>
+            <th>Currency</th>
+            <th>Note</th>
+            <th>Account</th>
+          </tr>
+
+          {monetaryCirculations.map((circulation) => (
+            <Transaction circulation={circulation} key={circulation.id} />
+          ))}
+        </tbody>
       </table>
-    </dir>
+    </div>
   );
 };
+function mapStateToProps({ userCirculations }) {
+  return {
+    userCirculations,
+  };
+}
 
-export default connect()(Transactions);
+export default connect(mapStateToProps)(Transactions);
