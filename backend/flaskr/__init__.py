@@ -194,10 +194,12 @@ def create_app(test_config=None):
 
     @app.route('/circulations')
     def get_monetary_circulations():
-        monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency).join(Cost_item).join(Currency).\
+        monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency, Account).\
+            join(Cost_item).join(Currency).join(Account).\
             filter(
                 Monetary_circulation.cost_item_id == Cost_item.id,
                 Monetary_circulation.currency_id == Currency.id,
+                Monetary_circulation.account_id == Account.id,
             ).\
             all()
           
@@ -213,8 +215,9 @@ def create_app(test_config=None):
                 'spending_sum': str(monetary_circulation.spending_sum),
                 'currency': currency.name,
                 'account_id': monetary_circulation.account_id,
+                'account': account.name,
                 'user_id': monetary_circulation.user_id,
-            } for monetary_circulation, cost_item, currency in monetary_circulations]
+            } for monetary_circulation, cost_item, currency, account in monetary_circulations]
         })   
 
     # GET circilations for the user
@@ -225,14 +228,16 @@ def create_app(test_config=None):
         if User.query.get(user_id) is None:
             abort(404)
 
-        monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency).join(Cost_item).join(Currency).\
+        monetary_circulations = db.session.query(Monetary_circulation, Cost_item, Currency, Account).\
+            join(Cost_item).join(Currency).join(Account).\
             filter(
                 Monetary_circulation.user_id == str(user_id),
                 Monetary_circulation.cost_item_id == Cost_item.id,
                 Monetary_circulation.currency_id == Currency.id,
+                Monetary_circulation.account_id == Account.id,
             ).\
             all()
-          
+
         return jsonify({
             'success': True,
             'monetary_circulations': [{
@@ -245,8 +250,9 @@ def create_app(test_config=None):
                 'spending_sum': str(monetary_circulation.spending_sum),
                 'currency': currency.name,
                 'account_id': monetary_circulation.account_id,
+                'account': account.name,
                 'user_id': monetary_circulation.user_id,
-            } for monetary_circulation, cost_item, currency in monetary_circulations]
+            } for monetary_circulation, cost_item, currency, account in monetary_circulations]
         })   
   
 
