@@ -243,6 +243,9 @@ def create_app(test_config=None):
             'monetary_circulations': [{
                 'id': monetary_circulation.id,
                 'date': monetary_circulation.date_time.strftime("%d.%m.%Y, %H:%M"),
+                'date_month': monetary_circulation.date_time.strftime("%m"),
+                'date_day': monetary_circulation.date_time.strftime("%d"),
+                'date_year': monetary_circulation.date_time.strftime("%Y"),
                 'cost_item': cost_item.name,
                 'cost_type': cost_item.type.name,
                 'notes': monetary_circulation.notes,
