@@ -16,7 +16,7 @@ const Transactions = (props) => {
             <th>Item</th>
             <th>Sum</th>
             <th>Currency</th>
-            <th>Note</th>
+            <th>Notes</th>
             <th>Account</th>
           </tr>
 

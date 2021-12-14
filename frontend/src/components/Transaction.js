@@ -9,7 +9,7 @@ const Transaction = (props) => {
       <th>{circulation.spending_sum}</th>
       <th>{circulation.currency}</th>
       <th>{circulation.notes}</th>
-      <th>{circulation.account_id}</th>
+      <th>{circulation.account}</th>
     </tr>
   );
 };
