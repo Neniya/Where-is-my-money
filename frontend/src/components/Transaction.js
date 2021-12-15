@@ -3,14 +3,14 @@ import React from 'react';
 const Transaction = (props) => {
   const { circulation } = props;
   return (
-    <tr className="tableLine">
-      <th>{circulation.date}</th>
-      <th>{circulation.cost_item}</th>
-      <th>{circulation.spending_sum}</th>
-      <th>{circulation.currency}</th>
-      <th>{circulation.notes}</th>
-      <th>{circulation.account}</th>
-    </tr>
+    <div className="tableLine">
+      <span>{circulation.date}</span>
+      <span>{circulation.cost_item}</span>
+      <span>{circulation.spending_sum}</span>
+      <span>{circulation.currency}</span>
+      <span>{circulation.notes}</span>
+      <span>{circulation.account}</span>
+    </div>
   );
 };
 
