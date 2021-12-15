@@ -246,6 +246,8 @@ def create_app(test_config=None):
                 'date_month': monetary_circulation.date_time.strftime("%m"),
                 'date_day': monetary_circulation.date_time.strftime("%d"),
                 'date_year': monetary_circulation.date_time.strftime("%Y"),
+                'date_year_month': monetary_circulation.date_time.strftime("%Y") +\
+                     '-' + monetary_circulation.date_time.strftime("%m"),
                 'cost_item': cost_item.name,
                 'cost_type': cost_item.type.name,
                 'notes': monetary_circulation.notes,
