@@ -4,12 +4,12 @@ const Transaction = (props) => {
   const { circulation } = props;
   return (
     <div className="tableLine">
-      <span>{circulation.date}</span>
-      <span>{circulation.cost_item}</span>
-      <span>{circulation.spending_sum}</span>
-      <span>{circulation.currency}</span>
-      <span>{circulation.notes}</span>
-      <span>{circulation.account}</span>
+      <span className="data_cell">{circulation.date}</span>
+      <span className="data_cell">{circulation.cost_item}</span>
+      <span className="sum_cell data_cell">{circulation.spending_sum}</span>
+      <span className="data_cell">{circulation.currency}</span>
+      <span className="data_cell">{circulation.notes}</span>
+      <span className="data_cell">{circulation.account}</span>
     </div>
   );
 };

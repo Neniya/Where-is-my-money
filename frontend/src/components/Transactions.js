@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Transaction from './Transaction';
+import './Transactions.css';
 
 const Transactions = (props) => {
   const [monthGroup, changeMonthGroup] = useState(false);
@@ -25,46 +26,65 @@ const Transactions = (props) => {
   return (
     <div>
       <h1>Where Is My Money</h1>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            onChange={() => changeMonthGroup(!monthGroup)}
-          />
-          Group by month
-        </label>
-      </div>
-
-      <div className="Main_table">
-        <div className="table_header">
-          <span className="column_date, header_cell">Date</span>
-          <span className="column_Item, header_cell">Item</span>
-          <span className="column_sum, header_cell">Sum</span>
-          <span className="column_currency, header_cell">Currency</span>
-          <span className="column_notes, header_cell">Notes</span>
-          <span className="column_account, header_cell">Account</span>
+      <div className="transactions">
+        <div className="checkbox_mounth">
+          <label>
+            <input
+              type="checkbox"
+              onChange={() => changeMonthGroup(!monthGroup)}
+            />
+            Group by month
+          </label>
         </div>
-        {monthGroup
-          ? Object.keys(transactionsByMonth).map((yearMonth) => (
-              <div>
-                <div className="table_mounth" key={yearMonth}>
-                  {new Date(yearMonth).toLocaleString('default', {
-                    month: 'long',
-                  })}
+
+        <div className="main_table">
+          <div className="table_header">
+            <span className="col, column_date, header_cell">
+              <h4>Date</h4>
+            </span>
+            <span className="col, column_Item, header_cell">
+              <h4>Item</h4>
+            </span>
+            <span className="col, column_sum, header_cell">
+              <h4>Sum</h4>
+            </span>
+            <span className="col, column_currency, header_cell">
+              <h4>Currency</h4>
+            </span>
+            <span className="col, column_notes, header_cell">
+              <h4>Notes</h4>
+            </span>
+            <span className="col column_account header_cell">
+              <h4>Account</h4>
+            </span>
+          </div>
+
+          <button className="add_transaction" title="add transaction">
+            <b>+</b>
+          </button>
+
+          {monthGroup
+            ? Object.keys(transactionsByMonth).map((yearMonth) => (
+                <div key={yearMonth}>
+                  <div className="table_mounth">
+                    {new Date(yearMonth).toLocaleString('default', {
+                      month: 'long',
+                    })}
+                  </div>
+                  <div>
+                    {transactionsByMonth[yearMonth].map((circulation) => (
+                      <Transaction
+                        circulation={circulation}
+                        key={circulation.id}
+                      />
+                    ))}
+                  </div>
                 </div>
-                <div>
-                  {transactionsByMonth[yearMonth].map((circulation) => (
-                    <Transaction
-                      circulation={circulation}
-                      key={circulation.id}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))
-          : TransactionsData.map((circulation) => (
-              <Transaction circulation={circulation} key={circulation.id} />
-            ))}
+              ))
+            : TransactionsData.map((circulation) => (
+                <Transaction circulation={circulation} key={circulation.id} />
+              ))}
+        </div>
       </div>
     </div>
   );

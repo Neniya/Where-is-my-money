@@ -1,0 +1,60 @@
+.transactions {
+  text-align: left;
+  width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.data_cell,
+.header_cell {
+  margin: 5px;
+  width: 100px;
+  padding: 5px;
+}
+
+.table_header,
+.tableLine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_table {
+  background-color: #7f8c91;
+
+  border-radius: 10px;
+}
+
+.table_header {
+  background-color: #b38867;
+  border-radius: 10px;
+}
+
+.table_mounth {
+  display: table-cell;
+  vertical-align: middle;
+  background-color: #626d71;
+  font-weight: bold;
+  border-radius: 10px;
+  height: 30px;
+  width: 90px;
+  border-bottom-style: solid;
+}
+.sum_cell {
+  /* height: 30px;
+  width: 100px; */
+
+  background-color: #ddbc95;
+  padding-right: 5px;
+  border-radius: 10px;
+  text-align: right;
+}
+
+.add_transaction {
+  background-color: #ddbc95;
+  border-color: black;
+  height: 30px;
+  border-radius: 10px;
+  font-size: 150%;
+}
