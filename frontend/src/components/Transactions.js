@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import Transaction from './Transaction';
+import NewTransaction from './NewTransaction';
 import './Transactions.css';
 
 const Transactions = (props) => {
@@ -62,7 +63,7 @@ const Transactions = (props) => {
           <button className="add_transaction" title="add transaction">
             <b>+</b>
           </button>
-
+          <NewTransaction />
           {monthGroup
             ? Object.keys(transactionsByMonth).map((yearMonth) => (
                 <div key={yearMonth}>
