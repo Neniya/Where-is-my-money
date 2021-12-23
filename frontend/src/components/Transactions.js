@@ -6,6 +6,7 @@ import './Transactions.css';
 
 const Transactions = (props) => {
   const [monthGroup, changeMonthGroup] = useState(false);
+  const [showNewForm, setShowNewForm] = useState(false);
   const monetaryCirculations = props.userCirculations.monetary_circulations;
   const TransactionsData = monetaryCirculations;
   console.log(monetaryCirculations);
@@ -60,10 +61,15 @@ const Transactions = (props) => {
             </span>
           </div>
 
-          <button className="add_transaction" title="add transaction">
+          <button
+            className="add_transaction"
+            title="add transaction"
+            onClick={() => setShowNewForm(!showNewForm)}
+          >
             <b>+</b>
           </button>
-          <NewTransaction />
+          {showNewForm && <NewTransaction />}
+
           {monthGroup
             ? Object.keys(transactionsByMonth).map((yearMonth) => (
                 <div key={yearMonth}>
