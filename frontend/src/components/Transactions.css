@@ -34,6 +34,7 @@
 .table_mounth {
   display: table-cell;
   vertical-align: middle;
+  text-align: center;
   background-color: #626d71;
   font-weight: bold;
   border-radius: 10px;
