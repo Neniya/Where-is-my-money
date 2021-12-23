@@ -5,6 +5,10 @@
   margin-left: auto;
 }
 
+.el_radius {
+  border-radius: 10px;
+}
+
 .data_cell,
 .header_cell {
   margin: 5px;

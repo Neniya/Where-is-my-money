@@ -1,0 +1,27 @@
+.new_transaction_form {
+  border-style: solid;
+  border-color: #b38867;
+  background-color: #626d71;
+  padding: 20px;
+  margin: 0px 20px;
+}
+
+.lbl {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.new_cell {
+  background-color: #ddbc95;
+  height: 30px;
+}
+
+.main_data_new_transaction {
+  display: flex;
+  gap: 3em;
+}
+
+.new_notes {
+  width: 100%;
+}
