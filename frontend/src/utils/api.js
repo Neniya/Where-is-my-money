@@ -62,3 +62,18 @@ export const getInitialData = () => {
     return users.users;
   });
 };
+
+//Get all of the cost items available for the app
+export const getAllCostItems = async () => {
+  const response = await fetch(`${api}/costitems`, {
+    metod: 'GET',
+    credentials: 'same-origin',
+    headers,
+  });
+  try {
+    const costitems = await response.json();
+    return costitems;
+  } catch (error) {
+    console.log('error', error);
+  }
+};

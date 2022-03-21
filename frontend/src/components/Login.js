@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { setAuthedUser } from '../actions/authedUser';
 import { useNavigate } from 'react-router-dom';
-import { handleGetUserCirculation } from '../actions/shared';
+import {
+  handleGetUserCirculation,
+  handleGetCostItems,
+} from '../actions/shared';
 
 const Login = (props) => {
   const { dispatch } = props;
@@ -11,6 +14,7 @@ const Login = (props) => {
 
   useEffect(() => {
     userId && dispatch(handleGetUserCirculation(userId));
+    dispatch(handleGetCostItems());
   }, [userId, dispatch]);
 
   const handleUserSubmit = (e) => {

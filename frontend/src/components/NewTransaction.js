@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import './NewTransaction.css';
 
 const NewTransaction = (props) => {
   const [sum, setSum] = useState(0.01);
+  const { costItems } = props;
+
   return (
     <form className="new_transaction_form el_radius">
       <div className="main_data_new_transaction">
@@ -15,7 +19,9 @@ const NewTransaction = (props) => {
             <span>
               <label className="lbl">Title:</label>
               <select className="new_cell el_radius">
-                <option>gym</option>
+                {costItems.map((costItem) => (
+                  <option key={costItem.id}>{costItem.name}</option>
+                ))}
               </select>
             </span>
           </div>
@@ -47,11 +53,17 @@ const NewTransaction = (props) => {
       </div>
 
       <div>
-        <lable className="lbl">Notes:</lable>
+        <label className="lbl">Notes:</label>
         <input type="text" className="new_cell el_radius new_notes"></input>
       </div>
     </form>
   );
 };
 
-export default NewTransaction;
+function mapStateToProps({ costItems }) {
+  return {
+    costItems: costItems.cost_types,
+  };
+}
+
+export default connect(mapStateToProps)(NewTransaction);
