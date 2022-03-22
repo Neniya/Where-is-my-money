@@ -62,7 +62,7 @@ const NewTransaction = (props) => {
 
 function mapStateToProps({ costItems }) {
   return {
-    costItems: costItems.cost_types,
+    costItems: costItems,
   };
 }
 

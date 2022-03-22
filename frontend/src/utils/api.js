@@ -72,7 +72,7 @@ export const getAllCostItems = async () => {
   });
   try {
     const costitems = await response.json();
-    return costitems;
+    return costitems.cost_types;
   } catch (error) {
     console.log('error', error);
   }
