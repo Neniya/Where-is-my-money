@@ -43,6 +43,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(), nullable=False)
     circulations = db.relationship('Monetary_circulation', backref='user', lazy = True)
+    accounts = db.relationship('Account', secondary = 'user_accounts', backref = db.backref('user', lazy = True))
+    
     def format(self):
         return {
             'id': self.id,
@@ -66,6 +68,12 @@ class Account(db.Model):
         db.session.add(self)
         db.session.commit()    
 
+# many-to-many
+# it gives opportunity for users to use one account for several users
+user_accounts = db.Table('user_accounts',
+    db.Column('account_id', db.Integer, db.ForeignKey('accounts.id'), primary_key = True),
+    db.Column('user_id', db.Integer ,db.ForeignKey('users.id'), primary_key = True)
+)
 
 class Cost_type(db.Model):
     __tablename__ = 'cost_types'
