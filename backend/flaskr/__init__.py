@@ -408,7 +408,30 @@ def create_app(test_config=None):
                 'user_id': monetary_circulation.user_id,
             } for monetary_circulation, cost_item, currency in current_circulations]})
         except BaseException:
-            abort(422)    
+            abort(422)   
+
+
+
+
+
+
+    # GET accounts for the user
+    @app.route('/accounts/<int:user_id>')
+    def get_user_accounts(user_id):
+
+        # if user doesn't exist
+        if User.query.get(user_id) is None:
+            abort(404)
+
+        user_accounts = []
+        list_of_user_accounts = Account.query.filter(Account.user.any(id=1)).all()
+        for account in list_of_user_accounts:
+            user_accounts.append(account.name) 
+
+        return jsonify({
+            'success': True,
+            'user_accounts': user_accounts,
+        })    
 
          # error handlers for all expected errors
 
