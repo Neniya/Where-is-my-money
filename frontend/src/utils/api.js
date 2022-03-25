@@ -77,3 +77,18 @@ export const getAllCostItems = async () => {
     console.log('error', error);
   }
 };
+
+//Get accanunts for user
+export const getUserAccounts = async (id) => {
+  const response = await fetch(`${api}/accounts/${id}`, {
+    metod: 'GET',
+    credentials: 'same-origin',
+    headers,
+  });
+  try {
+    const accounts = await response.json();
+    return accounts.user_accounts;
+  } catch (error) {
+    console.log('error', error);
+  }
+};
