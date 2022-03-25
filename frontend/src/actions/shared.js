@@ -1,5 +1,7 @@
 import { getAllUsers, getAllCostItems } from '../utils/api';
 import { getUsers } from './users';
+import { getUserAccounts } from '../utils/api';
+import { getAccountsForUser } from './userAccounts';
 import { showLoading, hideLoading } from 'react-redux-loading';
 import { getUserCirculations } from '../utils/api';
 import { getCirculationsForUser } from './userCirculations';
@@ -30,6 +32,16 @@ export const handleGetCostItems = () => {
     dispatch(showLoading());
     return getAllCostItems().then((costItems) => {
       dispatch(getCostItems(costItems));
+      dispatch(hideLoading());
+    });
+  };
+};
+
+export const handleGetUserAccounts = (id) => {
+  return (dispatch) => {
+    dispatch(showLoading());
+    return getUserAccounts(id).then((accounts) => {
+      dispatch(getAccountsForUser(accounts));
       dispatch(hideLoading());
     });
   };
