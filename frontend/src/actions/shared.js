@@ -46,3 +46,10 @@ export const handleGetUserAccounts = (id) => {
     });
   };
 };
+
+export const handleGetUsersData = (userId) => {
+  return (dispatch) => {
+    dispatch(handleGetUserCirculation(userId));
+    dispatch(handleGetUserAccounts(userId));
+  };
+};
