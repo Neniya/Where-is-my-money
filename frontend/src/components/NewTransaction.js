@@ -5,7 +5,8 @@ import './NewTransaction.css';
 
 const NewTransaction = (props) => {
   const [sum, setSum] = useState(0.01);
-  const { costItems } = props;
+  const { costItems, userAccounts } = props;
+  console.log('aacc', userAccounts);
 
   return (
     <form className="new_transaction_form el_radius">
@@ -31,7 +32,9 @@ const NewTransaction = (props) => {
           <div>
             <label className="lbl">From:</label>
             <select className="new_cell el_radius">
-              <option>account</option>
+              {userAccounts.map((account) => (
+                <option key={account.id}>{account.name}</option>
+              ))}
             </select>
           </div>
           <div>
@@ -60,9 +63,10 @@ const NewTransaction = (props) => {
   );
 };
 
-function mapStateToProps({ costItems }) {
+function mapStateToProps({ costItems, accounts }) {
   return {
-    costItems: costItems,
+    costItems,
+    userAccounts: accounts,
   };
 }
 

@@ -426,7 +426,9 @@ def create_app(test_config=None):
         user_accounts = []
         list_of_user_accounts = Account.query.filter(Account.user.any(id=user_id)).all()
         for account in list_of_user_accounts:
-            user_accounts.append(account.name) 
+            user_accounts.append(
+            {'name':account.name,
+            'id': account.id}) 
 
         return jsonify({
             'success': True,
