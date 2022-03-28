@@ -16,3 +16,15 @@ export const addUserCirculation = (circulation) => {
     circulation,
   };
 };
+
+export function handleAddUserCirculation(circulation) {
+  return (dispatch, getState) => {
+    dispatch(showLoading);
+
+    return postData('/circulations/add', circulation)
+      .then((data) => {
+        dispatch(addUserCirculation(data.circulation));
+      })
+      .then(() => dispatch(hideLoading));
+  };
+}
