@@ -47,7 +47,7 @@ export const getUserCirculations = async (id) => {
   });
   try {
     const circulations = await response.json();
-    return circulations;
+    return circulations.monetary_circulations;
   } catch (error) {
     console.log('error', error);
   }
@@ -94,7 +94,7 @@ export const getUserAccounts = async (id) => {
 };
 
 export const postData = async (url = '', data = {}) => {
-  const response = await fetch(url, {
+  const response = await fetch(`${api}${url}`, {
     method: 'POST',
     credentials: 'same-origin',
     headers: {

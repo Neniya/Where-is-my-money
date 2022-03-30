@@ -7,7 +7,7 @@ import './Transactions.css';
 const Transactions = (props) => {
   const [monthGroup, changeMonthGroup] = useState(false);
   const [showNewForm, setShowNewForm] = useState(false);
-  const monetaryCirculations = props.userCirculations.monetary_circulations;
+  const monetaryCirculations = props.userCirculations;
   const TransactionsData = monetaryCirculations;
   console.log(monetaryCirculations);
 
