@@ -324,15 +324,19 @@ def create_app(test_config=None):
 
             circulation.insert()
             selection = Monetary_circulation.query.order_by('id').all()
+           
 
             return jsonify({
                 'success': True,
-                'created': circulation.id,
-                'circulation': circulation,
+                'created': circulation.id,  
+                'date': circulation.date_time.strftime("%d.%m.%Y, %H:%M"),        
                 'total_circulations': len(selection)
             })
         except BaseException:
-            abort(404)        
+            abort(404)     
+
+    
+            
 
     # Change a circulation
     @app.route('/circulations/<int:circulation_id>', methods=['PATCH'])
