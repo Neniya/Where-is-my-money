@@ -68,7 +68,9 @@ const Transactions = (props) => {
           >
             <b>+</b>
           </button>
-          {showNewForm && <NewTransaction />}
+          {showNewForm && (
+            <NewTransaction handleSetShowNewForm={setShowNewForm} />
+          )}
 
           {monthGroup
             ? Object.keys(transactionsByMonth).map((yearMonth) => (

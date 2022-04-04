@@ -59,11 +59,17 @@ const NewTransaction = (props) => {
     };
 
     dispatch(handleAddUserCirculation(circulation));
-    //   this.setState(() => ({
-    //     textOptionOne: "",
-    //     textOptionTwo: "",
-    //   }));
-    //   this.props.history.push(`/dashboard`);
+
+    setSum(0.01);
+    setDate('');
+    setCostItemID('-1');
+    setCostItemName('');
+    setNotes('');
+    setCurrencyId('-1');
+    setCurrencyName('');
+    setAccountId('-1');
+    setAccountName('');
+    props.handleSetShowNewForm(false);
   };
 
   return (
@@ -79,6 +85,7 @@ const NewTransaction = (props) => {
               required
               className="new_cell el_radius "
               type="date"
+              value={date}
               onChange={(e) => {
                 setDate(e.target.value);
               }}
@@ -92,6 +99,7 @@ const NewTransaction = (props) => {
                 required
                 className="new_cell el_radius"
                 id="costItem"
+                value={costItemId}
                 onChange={(e) => handleSetCostItem(e)}
               >
                 <option key="-1" value="">
@@ -115,6 +123,7 @@ const NewTransaction = (props) => {
               required
               className="new_cell el_radius"
               id="account"
+              value={accountId}
               onChange={(e) => handleSetAccount(e)}
             >
               <option key="-1" value="">
@@ -144,6 +153,7 @@ const NewTransaction = (props) => {
               required
               className="new_cell el_radius "
               id="currency"
+              value={currencyId}
               onChange={(e) => {
                 handleSetCurrency(e);
               }}
@@ -164,6 +174,7 @@ const NewTransaction = (props) => {
         <input
           type="text"
           className="new_cell el_radius new_notes"
+          value={notes}
           onChange={(e) => {
             setNotes(e.target.value);
           }}
