@@ -100,7 +100,9 @@ const Transactions = (props) => {
 };
 function mapStateToProps({ userCirculations }) {
   return {
-    userCirculations,
+    userCirculations: userCirculations.sort(
+      (a, b) => b.timestamp - a.timestamp
+    ),
   };
 }
 
