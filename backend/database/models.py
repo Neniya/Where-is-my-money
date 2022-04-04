@@ -116,7 +116,7 @@ class Currency(db.Model):
 
 
 class  Monetary_circulation(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.BigInteger, primary_key = True)
     date_time = db.Column(db.DateTime) 
     cost_item_id = db.Column(db.ForeignKey('cost_items.id'), nullable = False)
     notes = db.Column(db.String, nullable = True)
@@ -125,6 +125,7 @@ class  Monetary_circulation(db.Model):
     currency_id = db.Column(db.ForeignKey('currency.id'), nullable = False)
     account_id = db.Column(db.ForeignKey('accounts.id'), nullable = False)
     user_id = db.Column(db.ForeignKey('users.id'), nullable = False)
+    timestamp = db.Column(db.Integer, nullable = False)
 
 
     def format(self):
@@ -138,6 +139,7 @@ class  Monetary_circulation(db.Model):
             'currency_id': self.currency_id,
             'account_id': self.account_id,
             'user_id': self.user_id, 
+            'time_stamp': self.time_stamp,
         }
 
     def insert(self):
