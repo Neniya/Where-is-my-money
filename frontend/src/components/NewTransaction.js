@@ -164,7 +164,7 @@ const NewTransaction = (props) => {
           }}
         ></input>
       </div>
-      <input type="submit" value="add" />
+      <input type="submit" className="button_add" value="add" />
     </form>
   );
 };
