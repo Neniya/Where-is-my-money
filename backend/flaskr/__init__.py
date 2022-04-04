@@ -322,7 +322,7 @@ def create_app(test_config=None):
                 currency_id = int(new_currency_id),
                 account_id = int(new_account_id),
                 user_id = int(new_user_id),
-                timestamp = int(new_timestamp);
+                timestamp = int(new_timestamp),
                 )
 
             circulation.insert()
