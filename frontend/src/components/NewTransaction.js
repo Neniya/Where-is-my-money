@@ -41,6 +41,7 @@ const NewTransaction = (props) => {
     const formatMonth = String(formatDate.getMonth() + 1);
     const circulation = {
       date: date,
+      timestamp: formatDate.getTime(),
       date_month: formatMonth,
       date_day: formatDate.getDate(),
       date_year: formatDate.getFullYear(),
