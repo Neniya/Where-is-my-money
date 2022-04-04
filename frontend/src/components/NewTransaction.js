@@ -76,6 +76,7 @@ const NewTransaction = (props) => {
           <div>
             <label className="lbl">Date:</label>
             <input
+              required
               className="new_cell el_radius "
               type="date"
               onChange={(e) => {
@@ -88,6 +89,7 @@ const NewTransaction = (props) => {
               <label className="lbl">Title:</label>
 
               <select
+                required
                 className="new_cell el_radius"
                 id="costItem"
                 onChange={(e) => handleSetCostItem(e)}
@@ -110,6 +112,7 @@ const NewTransaction = (props) => {
             <label className="lbl">From:</label>
 
             <select
+              required
               className="new_cell el_radius"
               id="account"
               onChange={(e) => handleSetAccount(e)}
@@ -127,6 +130,7 @@ const NewTransaction = (props) => {
           <div>
             <label className="lbl">Sum:</label>
             <input
+              required
               className="sum_cell new_cell el_radius"
               type="number"
               step="0.01"
@@ -137,6 +141,7 @@ const NewTransaction = (props) => {
             ></input>
 
             <select
+              required
               className="new_cell el_radius "
               id="currency"
               onChange={(e) => {
