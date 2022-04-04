@@ -257,7 +257,7 @@ def create_app(test_config=None):
                 'account_id': monetary_circulation.account_id,
                 'account': account.name,
                 'user_id': monetary_circulation.user_id,
-                'timestamp': monetary_circulation.timestamp;
+                'timestamp': monetary_circulation.timestamp,
             } for monetary_circulation, cost_item, currency, account in monetary_circulations]
         })   
   
