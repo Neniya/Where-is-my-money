@@ -257,6 +257,7 @@ def create_app(test_config=None):
                 'account_id': monetary_circulation.account_id,
                 'account': account.name,
                 'user_id': monetary_circulation.user_id,
+                'timestamp': monetary_circulation.timestamp;
             } for monetary_circulation, cost_item, currency, account in monetary_circulations]
         })   
   
@@ -305,6 +306,7 @@ def create_app(test_config=None):
         new_currency_id = request.json.get('currency_id')
         new_account_id = request.json.get('account_id')
         new_user_id = request.json.get('user_id')
+        new_timestamp = request.json.get('timestamp')
         
         if (new_date is None or new_cost_item_id is None
                 or new_account_id is None or new_user_id is None):
@@ -320,12 +322,12 @@ def create_app(test_config=None):
                 currency_id = int(new_currency_id),
                 account_id = int(new_account_id),
                 user_id = int(new_user_id),
+                timestamp = int(new_timestamp);
                 )
 
             circulation.insert()
             selection = Monetary_circulation.query.order_by('id').all()
            
-
             return jsonify({
                 'success': True,
                 'created': circulation.id,  
@@ -334,9 +336,7 @@ def create_app(test_config=None):
             })
         except BaseException:
             abort(404)     
-
-    
-            
+         
 
     # Change a circulation
     @app.route('/circulations/<int:circulation_id>', methods=['PATCH'])
