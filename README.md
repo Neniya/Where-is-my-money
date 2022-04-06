@@ -9,6 +9,7 @@ I'm creating this project by using next technologies:
 
 Backend:
 **_Postgres, Python, Flask, Flaskr_**
+
 Ffontend:
 **_JavaScript, HTML, React, Redux, CSS_**
 
