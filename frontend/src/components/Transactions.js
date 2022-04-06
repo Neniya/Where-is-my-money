@@ -13,8 +13,9 @@ const Transactions = (props) => {
 
   const groupTransactions = () => {
     const res = monetaryCirculations.reduce((h, obj) => {
+      console.log(`${obj.spending_sum}`);
       return Object.assign(h, {
-        [obj.date_year_month]: (h[obj.date_year_month] || []).concat({
+        [obj.date]: (h[obj.date] || []).concat({
           ...obj,
         }),
       });
@@ -22,8 +23,8 @@ const Transactions = (props) => {
     return res;
   };
 
-  const transactionsByMonth = groupTransactions();
-  console.log(transactionsByMonth);
+  const transactionsByDate = groupTransactions();
+  console.log(transactionsByDate);
 
   return (
     <div>
@@ -35,7 +36,7 @@ const Transactions = (props) => {
               type="checkbox"
               onChange={() => changeMonthGroup(!monthGroup)}
             />
-            Group by month
+            Group by date
           </label>
         </div>
 
@@ -73,15 +74,18 @@ const Transactions = (props) => {
           )}
 
           {monthGroup
-            ? Object.keys(transactionsByMonth).map((yearMonth) => (
-                <div key={yearMonth}>
+            ? Object.keys(transactionsByDate).map((date) => (
+                <div key={date}>
                   <div className="table_mounth">
-                    {new Date(yearMonth).toLocaleString('default', {
+                    {new Date(
+                      `${date.slice(3, 5)}.${date.slice(0, 2)}.${date.slice(6)}`
+                    ).toLocaleString('default', {
                       month: 'long',
+                      day: 'numeric',
                     })}
                   </div>
                   <div>
-                    {transactionsByMonth[yearMonth].map((circulation) => (
+                    {transactionsByDate[date].map((circulation) => (
                       <Transaction
                         circulation={circulation}
                         key={circulation.id}
