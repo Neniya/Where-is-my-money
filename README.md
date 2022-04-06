@@ -13,10 +13,11 @@ Backend:
 Ffontend:
 **_JavaScript, HTML, React, Redux, CSS_**
 
-##API
+## API
 
-###Getting Started
-####Backend
+### Getting Started
+
+#### Backend
 
 Base URL: At present this app can only be run locally and is not hosted as base URL. The backend upp is hosted at the default, http://127.0.0.1:5000/, which is set as a proxi in the frontend configuration.
 Authentication: This version of the application does not require authentication or API keys.
@@ -37,7 +38,8 @@ Setting the `FLASK_ENV` variable to `development` will detect file changes and r
 
 Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` directory and the `__init__.py` file to find the application.
 
-####Frontend
+#### Frontend
+
 Installing Dependencies
 
 Installing Node and NPM
