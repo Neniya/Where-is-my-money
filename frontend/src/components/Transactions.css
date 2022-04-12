@@ -35,17 +35,25 @@
   border-radius: 10px;
 }
 
+.table_line_day {
+  display: flex;
+  flex-direction: row;
+  background-color: #6a7275;
+  border-radius: 10px;
+}
+
 .table_mounth {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
-  background-color: #626d71;
+  /* background-color: #626d71; */
   font-weight: bold;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   height: 30px;
-  width: 90px;
-  border-bottom-style: solid;
+  width: 100px;
+  /* border-bottom-style: solid; */
 }
+
 .sum_cell {
   /* height: 30px;
   width: 100px; */
@@ -54,6 +62,13 @@
   padding-right: 5px;
   border-radius: 10px;
   text-align: right;
+}
+.sum_cell_day {
+  margin-left: 110px;
+  width: 90px;
+  height: 30px;
+  text-align: right;
+  font-weight: bold;
 }
 
 .add_transaction {

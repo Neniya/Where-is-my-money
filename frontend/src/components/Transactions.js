@@ -26,6 +26,10 @@ const Transactions = (props) => {
   const transactionsByDate = groupTransactions();
   console.log(transactionsByDate);
 
+  const calcDaySum = (movements) => {
+    return movements.reduce((acc, mov) => acc + Number(mov.spending_sum), 0);
+  };
+
   return (
     <div>
       <h1>Where Is My Money</h1>
@@ -76,13 +80,21 @@ const Transactions = (props) => {
           {monthGroup
             ? Object.keys(transactionsByDate).map((date) => (
                 <div key={date}>
-                  <div className="table_mounth">
-                    {new Date(
-                      `${date.slice(3, 5)}.${date.slice(0, 2)}.${date.slice(6)}`
-                    ).toLocaleString('default', {
-                      month: 'long',
-                      day: 'numeric',
-                    })}
+                  <div className="table_line_day">
+                    <div className="table_mounth">
+                      {new Date(
+                        `${date.slice(3, 5)}.${date.slice(0, 2)}.${date.slice(
+                          6
+                        )}`
+                      ).toLocaleString('default', {
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </div>
+                    <div className="sum_cell_day">
+                      {' '}
+                      {calcDaySum(transactionsByDate[date])}
+                    </div>
                   </div>
                   <div>
                     {transactionsByDate[date].map((circulation) => (
