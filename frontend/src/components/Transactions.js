@@ -55,9 +55,7 @@ const Transactions = (props) => {
             <span className="col, column_sum, header_cell">
               <h4>Sum</h4>
             </span>
-            <span className="col, column_currency, header_cell">
-              <h4>Currency</h4>
-            </span>
+
             <span className="col, column_notes, header_cell">
               <h4>Notes</h4>
             </span>
@@ -81,7 +79,7 @@ const Transactions = (props) => {
             ? Object.keys(transactionsByDate).map((date) => (
                 <div key={date}>
                   <div className="table_line_day">
-                    <div className="table_mounth">
+                    <div className="table_mounth header_cell">
                       {new Date(
                         `${date.slice(3, 5)}.${date.slice(0, 2)}.${date.slice(
                           6
@@ -91,9 +89,9 @@ const Transactions = (props) => {
                         day: 'numeric',
                       })}
                     </div>
-                    <div className="sum_cell_day">
-                      {' '}
-                      {calcDaySum(transactionsByDate[date])}
+                    <div className="header_cell"> </div>
+                    <div className=" header_cell sum_cell_day">
+                      {`${calcDaySum(transactionsByDate[date])} €`}
                     </div>
                   </div>
                   <div>

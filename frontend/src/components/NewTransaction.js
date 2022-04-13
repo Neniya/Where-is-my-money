@@ -163,7 +163,7 @@ const NewTransaction = (props) => {
                 --select currency--
               </option>
               <option key="0" value="0">
-                euro
+                €
               </option>
             </select>
           </div>
