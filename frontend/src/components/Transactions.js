@@ -26,7 +26,7 @@ const Transactions = (props) => {
   const transactionsByDate = groupTransactions();
   console.log(transactionsByDate);
 
-  const calcDaySum = (movements) => {
+  const calcDaySpendingSum = (movements) => {
     return movements.reduce((acc, mov) => acc + Number(mov.spending_sum), 0);
   };
 
@@ -91,7 +91,7 @@ const Transactions = (props) => {
                     </div>
                     <div className="header_cell"> </div>
                     <div className=" header_cell sum_cell_day">
-                      {`${calcDaySum(transactionsByDate[date])} €`}
+                      {`-${calcDaySpendingSum(transactionsByDate[date])} €`}
                     </div>
                   </div>
                   <div>
