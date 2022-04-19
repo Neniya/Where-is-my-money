@@ -78,7 +78,7 @@ export const getAllCostItems = async () => {
   }
 };
 
-//Get accanunts for user
+//Get acconunts for user
 export const getUserAccounts = async (id) => {
   const response = await fetch(`${api}/accounts/${id}`, {
     metod: 'GET',
@@ -106,6 +106,25 @@ export const postData = async (url = '', data = {}) => {
   try {
     const newData = await response.json();
     return newData;
+  } catch (error) {
+    console.log('error', error);
+  }
+};
+
+//delete circulation by id
+export const deleteCirculation = async (userId, circulationId) => {
+  const response = await fetch(
+    `${api}/circulations/${userId}/${circulationId}`,
+    {
+      method: 'DELETE',
+      credentials: 'same-origin',
+      headers,
+    }
+  );
+
+  try {
+    const circulations = await response.json();
+    return circulations.monetary_circulations;
   } catch (error) {
     console.log('error', error);
   }
