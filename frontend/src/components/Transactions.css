@@ -1,6 +1,6 @@
 .transactions {
   text-align: left;
-  width: 600px;
+  width: 650px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -15,6 +15,19 @@
   width: 100px;
   padding: 5px;
 }
+.icon {
+  margin: 5px 0px;
+  padding: 5px;
+  cursor: pointer;
+}
+.icon:hover {
+  border-radius: 8px;
+
+  background-color: #e995746c;
+}
+.icon:active {
+  background-color: #816148;
+}
 
 .table_header,
 .tableLine {
@@ -22,6 +35,9 @@
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
+}
+.table_header {
+  padding-right: 50px;
 }
 
 .main_table {

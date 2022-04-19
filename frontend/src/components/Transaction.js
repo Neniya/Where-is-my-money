@@ -15,6 +15,14 @@ const Transaction = (props) => {
       <span className="sum_cell data_cell">{`-${circulation.spending_sum} ${circulation.currency}`}</span>
       <span className="data_cell">{circulation.notes}</span>
       <span className="data_cell">{circulation.account}</span>
+
+      <img
+        className="icon"
+        src={`icons/pencil-3.png`}
+        alt="change"
+        width="15"
+      />
+      <img className="icon" src={`icons/trash-2.png`} alt="change" width="15" />
     </div>
   );
 };
