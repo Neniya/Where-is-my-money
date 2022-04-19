@@ -1,10 +1,10 @@
 **The project is under construction.**
 
-# Would You Rather Project
+# Where Is My Money Project
 
 **The project is under construction.**
 
-It is an expence tracker.
+It is an expenses tracker.
 I'm creating this project by using next technologies:
 
 Backend:
