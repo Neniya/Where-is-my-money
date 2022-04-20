@@ -1,6 +1,7 @@
 import {
   GET_USER_CIRCULATIONS,
   ADD_USER_CIRCULATION,
+  DELETE_USER_CIRCULATION,
 } from '../actions/userCirculations';
 
 export default function userCirculations(state = [], action) {
@@ -10,6 +11,8 @@ export default function userCirculations(state = [], action) {
 
     case ADD_USER_CIRCULATION:
       return [...state, action.circulation];
+    case DELETE_USER_CIRCULATION:
+      return state.filter((circulation) => circulation.id !== action.id);
 
     default:
       return state;
