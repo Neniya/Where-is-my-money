@@ -1,9 +1,9 @@
-import React from 'react';
 import { handleDeleteCirculation } from '../actions/userCirculations';
 import { connect } from 'react-redux';
 
 const Transaction = (props) => {
   const { circulation } = props;
+
   const getDate = (date) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return new Date(
@@ -21,6 +21,11 @@ const Transaction = (props) => {
       dispatch(handleDeleteCirculation(e.target.id));
     }
   };
+
+  const handleChangeTransaction = (e) => {
+    e.preventDefault();
+    props.handleShowChangeForm(true);
+  };
   return (
     <div className="tableLine">
       <span className="data_cell">{getDate(circulation.date)}</span>
@@ -34,6 +39,9 @@ const Transaction = (props) => {
         src={`icons/pencil-3.png`}
         alt="change"
         width="15"
+        onClick={(e) => {
+          handleChangeTransaction(e);
+        }}
       />
       <img
         className="icon"

@@ -7,6 +7,7 @@ import './Transactions.css';
 const Transactions = (props) => {
   const [monthGroup, changeMonthGroup] = useState(false);
   const [showNewForm, setShowNewForm] = useState(false);
+  const [showChangeForm, setShowChangeForm] = useState(false);
   const monetaryCirculations = props.userCirculations;
   const TransactionsData = monetaryCirculations;
   console.log(monetaryCirculations);
@@ -99,15 +100,23 @@ const Transactions = (props) => {
                       <Transaction
                         circulation={circulation}
                         key={circulation.id}
+                        handleShowChangeForm={setShowChangeForm}
                       />
                     ))}
                   </div>
                 </div>
               ))
             : TransactionsData.map((circulation) => (
-                <Transaction circulation={circulation} key={circulation.id} />
+                <Transaction
+                  circulation={circulation}
+                  key={circulation.id}
+                  handleShowChangeForm={setShowChangeForm}
+                />
               ))}
         </div>
+      </div>
+      <div className={`modal ${showChangeForm ? '' : 'hidden'}`}>
+        <NewTransaction handleShowChangeForm={setShowChangeForm} />
       </div>
     </div>
   );
