@@ -1,4 +1,6 @@
 import React from 'react';
+import { handleDeleteCirculation } from '../actions/userCirculations';
+import { connect } from 'react-redux';
 
 const Transaction = (props) => {
   const { circulation } = props;
@@ -7,6 +9,17 @@ const Transaction = (props) => {
     return new Date(
       `${date.slice(3, 5)}.${date.slice(0, 2)}.${date.slice(6)}`
     ).toLocaleDateString('de-DE', options);
+  };
+  const handleDeleteTransaction = (e) => {
+    e.preventDefault();
+    const { dispatch } = props;
+    const deleteTransaction = window.confirm(
+      'Are you sure you want to delete transaction?'
+    );
+
+    if (deleteTransaction) {
+      dispatch(handleDeleteCirculation(e.target.id));
+    }
   };
   return (
     <div className="tableLine">
@@ -22,9 +35,24 @@ const Transaction = (props) => {
         alt="change"
         width="15"
       />
-      <img className="icon" src={`icons/trash-2.png`} alt="change" width="15" />
+      <img
+        className="icon"
+        src={`icons/trash-2.png`}
+        alt="change"
+        width="15"
+        id={circulation.id}
+        onClick={(e) => {
+          handleDeleteTransaction(e);
+        }}
+      />
     </div>
   );
 };
 
-export default Transaction;
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+export default connect(mapDispatchToProps)(Transaction);
