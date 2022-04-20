@@ -123,8 +123,8 @@ export const deleteCirculation = async (userId, circulationId) => {
   );
 
   try {
-    const circulations = await response.json();
-    return circulations.monetary_circulations;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log('error', error);
   }
