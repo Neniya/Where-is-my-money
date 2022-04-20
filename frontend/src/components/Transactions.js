@@ -115,9 +115,10 @@ const Transactions = (props) => {
               ))}
         </div>
       </div>
-      <div className={`modal ${showChangeForm ? '' : 'hidden'}`}>
+      <div className={`modal ${showChangeForm && 'hidden'}`}>
         <NewTransaction handleShowChangeForm={setShowChangeForm} />
       </div>
+      <div className={`overlay ${showChangeForm && 'hidden'}`}></div>
     </div>
   );
 };
