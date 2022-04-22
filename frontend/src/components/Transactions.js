@@ -73,7 +73,10 @@ const Transactions = (props) => {
             <b>+</b>
           </button>
           {showNewForm && (
-            <NewTransaction handleSetShowNewForm={setShowNewForm} />
+            <NewTransaction
+              handleSetShowNewForm={setShowNewForm}
+              formType="Add"
+            />
           )}
 
           {monthGroup
@@ -115,10 +118,13 @@ const Transactions = (props) => {
               ))}
         </div>
       </div>
-      <div className={`modal ${showChangeForm && 'hidden'}`}>
-        <NewTransaction handleShowChangeForm={setShowChangeForm} />
+      <div className={`modal ${!showChangeForm && 'hidden'}`}>
+        <NewTransaction
+          handleShowChangeForm={setShowChangeForm}
+          formType="Change"
+        />
       </div>
-      <div className={`overlay ${showChangeForm && 'hidden'}`}></div>
+      <div className={`overlay ${!showChangeForm && 'hidden'}`}></div>
     </div>
   );
 };

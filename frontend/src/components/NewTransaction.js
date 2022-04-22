@@ -9,6 +9,7 @@ const getOptionName = (e) => {
 };
 
 const NewTransaction = (props) => {
+  const { formType } = props;
   const [sum, setSum] = useState(0.01);
   const [date, setDate] = useState('');
   const [costItemId, setCostItemID] = useState('-1');
@@ -181,7 +182,17 @@ const NewTransaction = (props) => {
           }}
         ></input>
       </div>
-      <input type="submit" className="button_add" value="add" />
+      <div className="buttons">
+        {formType === 'Change' && (
+          <input
+            className="cancelBtn"
+            type="button"
+            className="button_add"
+            value="Cancel"
+          />
+        )}
+        <input type="submit" className="button_add" value={formType} />
+      </div>
     </form>
   );
 };
