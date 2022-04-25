@@ -82,6 +82,17 @@ const Transactions = (props) => {
             <NewTransaction
               handleSetShowNewForm={setShowNewForm}
               formType="Add"
+              transactionData={{
+                sum: 0.01,
+                date: '',
+                costItemID: '-1',
+                costItemName: '',
+                notes: '',
+                currencyId: '-1',
+                currencyName: '',
+                accountId: '-1',
+                accountName: '',
+              }}
             />
           )}
 
@@ -128,6 +139,17 @@ const Transactions = (props) => {
         <NewTransaction
           handleShowChangeForm={setShowChangeForm}
           formType="Change"
+          transactionData={{
+            sum: 0.01,
+            date: '',
+            costItemID: '-1',
+            costItemName: '',
+            notes: '',
+            currencyId: '-1',
+            currencyName: '',
+            accountId: '-1',
+            accountName: '',
+          }}
         />
       </div>
       <div

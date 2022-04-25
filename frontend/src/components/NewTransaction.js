@@ -9,16 +9,20 @@ const getOptionName = (e) => {
 };
 
 const NewTransaction = (props) => {
-  const { formType } = props;
-  const [sum, setSum] = useState(0.01);
-  const [date, setDate] = useState('');
-  const [costItemId, setCostItemID] = useState('-1');
-  const [costItemName, setCostItemName] = useState('');
-  const [notes, setNotes] = useState('');
-  const [currencyId, setCurrencyId] = useState('-1');
-  const [currencyName, setCurrencyName] = useState('');
-  const [accountId, setAccountId] = useState('-1');
-  const [accountName, setAccountName] = useState('');
+  const { formType, transactionData } = props;
+  const [sum, setSum] = useState(transactionData.sum);
+  const [date, setDate] = useState(transactionData.date);
+  const [costItemId, setCostItemID] = useState(transactionData.costItemId);
+  const [costItemName, setCostItemName] = useState(
+    transactionData.costItemName
+  );
+  const [notes, setNotes] = useState(transactionData.notes);
+  const [currencyId, setCurrencyId] = useState(transactionData.currencyId);
+  const [currencyName, setCurrencyName] = useState(
+    transactionData.currencyName
+  );
+  const [accountId, setAccountId] = useState(transactionData.accountId);
+  const [accountName, setAccountName] = useState(transactionData.accountName);
 
   const handleSetCostItem = (e) => {
     setCostItemID(e.target.value);
