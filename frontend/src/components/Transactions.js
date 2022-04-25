@@ -31,6 +31,12 @@ const Transactions = (props) => {
     return movements.reduce((acc, mov) => acc + Number(mov.spending_sum), 0);
   };
 
+  const handleOverlayOnClick = () => {
+    if (showChangeForm) {
+      setShowChangeForm(false);
+    }
+  };
+
   return (
     <div>
       <h1>Where Is My Money</h1>
@@ -124,7 +130,10 @@ const Transactions = (props) => {
           formType="Change"
         />
       </div>
-      <div className={`overlay ${!showChangeForm && 'hidden'}`}></div>
+      <div
+        className={`overlay ${!showChangeForm && 'hidden'}`}
+        onClick={handleOverlayOnClick}
+      ></div>
     </div>
   );
 };

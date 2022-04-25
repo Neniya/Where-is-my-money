@@ -74,6 +74,17 @@ const NewTransaction = (props) => {
     props.handleSetShowNewForm(false);
   };
 
+  const handleChangeTransaction = (e) => {
+    e.preventDefault();
+    props.handleShowChangeForm(false);
+  };
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      props.handleShowChangeForm(false);
+    }
+  });
+
   return (
     <form
       className="new_transaction_form el_radius"
@@ -187,11 +198,14 @@ const NewTransaction = (props) => {
           <input
             className="cancelBtn"
             type="button"
-            className="button_add"
+            className="button_cancel, btn"
             value="Cancel"
+            onClick={(e) => {
+              handleChangeTransaction(e);
+            }}
           />
         )}
-        <input type="submit" className="button_add" value={formType} />
+        <input type="submit" className="button_submit, btn" value={formType} />
       </div>
     </form>
   );
