@@ -6,6 +6,12 @@ const Transaction = (props) => {
 
   const getDate = (date) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    //add formated date for change form
+    circulation.formatedDate = `${date.slice(6, 10)}-${date.slice(
+      3,
+      5
+    )}-${date.slice(0, 2)}`;
+
     return new Date(
       `${date.slice(3, 5)}.${date.slice(0, 2)}.${date.slice(6)}`
     ).toLocaleDateString('de-DE', options);
@@ -26,6 +32,7 @@ const Transaction = (props) => {
     e.preventDefault();
     props.handleShowChangeForm(true);
   };
+
   return (
     <div className="tableLine">
       <span className="data_cell">{getDate(circulation.date)}</span>
