@@ -8,13 +8,24 @@ const Transactions = (props) => {
   const [monthGroup, changeMonthGroup] = useState(false);
   const [showNewForm, setShowNewForm] = useState(false);
   const [showChangeForm, setShowChangeForm] = useState(false);
+  const emptyTransactionData = {
+    sum: 0.01,
+    date: '',
+    costItemId: '-1',
+    costItemName: '',
+    notes: '',
+    currencyId: '-1',
+    currencyName: '',
+    accountId: '-1',
+    accountName: '',
+  };
+
+  const [transactionData, setTransactionData] = useState(emptyTransactionData);
   const monetaryCirculations = props.userCirculations;
   const TransactionsData = monetaryCirculations;
-  console.log(monetaryCirculations);
 
   const groupTransactions = () => {
     const res = monetaryCirculations.reduce((h, obj) => {
-      console.log(`${obj.spending_sum}`);
       return Object.assign(h, {
         [obj.date]: (h[obj.date] || []).concat({
           ...obj,
@@ -25,7 +36,6 @@ const Transactions = (props) => {
   };
 
   const transactionsByDate = groupTransactions();
-  console.log(transactionsByDate);
 
   const calcDaySpendingSum = (movements) => {
     return movements.reduce((acc, mov) => acc + Number(mov.spending_sum), 0);
@@ -35,6 +45,21 @@ const Transactions = (props) => {
     if (showChangeForm) {
       setShowChangeForm(false);
     }
+  };
+
+  const setDataForChangeForm = (showForm, circulation) => {
+    setTransactionData({
+      sum: Number(circulation.spending_sum),
+      date: circulation.formatedDate,
+      costItemId: circulation.cost_item_id,
+      costItemName: circulation.cost_item,
+      notes: circulation.notes,
+      currencyId: circulation.currency_id,
+      currencyName: circulation.currency,
+      accountId: circulation.account_id,
+      accountName: circulation.account,
+    });
+    setShowChangeForm(showForm);
   };
 
   return (
@@ -82,17 +107,7 @@ const Transactions = (props) => {
             <NewTransaction
               handleSetShowNewForm={setShowNewForm}
               formType="Add"
-              transactionData={{
-                sum: 0.01,
-                date: '',
-                costItemID: '-1',
-                costItemName: '',
-                notes: '',
-                currencyId: '-1',
-                currencyName: '',
-                accountId: '-1',
-                accountName: '',
-              }}
+              transactionData={emptyTransactionData}
             />
           )}
 
@@ -120,7 +135,7 @@ const Transactions = (props) => {
                       <Transaction
                         circulation={circulation}
                         key={circulation.id}
-                        handleShowChangeForm={setShowChangeForm}
+                        handleSetDataForChangeForm={setDataForChangeForm}
                       />
                     ))}
                   </div>
@@ -130,7 +145,7 @@ const Transactions = (props) => {
                 <Transaction
                   circulation={circulation}
                   key={circulation.id}
-                  handleShowChangeForm={setShowChangeForm}
+                  handleSetDataForChangeForm={setDataForChangeForm}
                 />
               ))}
         </div>
@@ -138,18 +153,9 @@ const Transactions = (props) => {
       <div className={`modal ${!showChangeForm && 'hidden'}`}>
         <NewTransaction
           handleShowChangeForm={setShowChangeForm}
+          handleSetShowNewForm={setShowNewForm}
           formType="Change"
-          transactionData={{
-            sum: 0.01,
-            date: '',
-            costItemID: '-1',
-            costItemName: '',
-            notes: '',
-            currencyId: '-1',
-            currencyName: '',
-            accountId: '-1',
-            accountName: '',
-          }}
+          transactionData={transactionData}
         />
       </div>
       <div

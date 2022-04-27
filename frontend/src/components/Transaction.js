@@ -30,7 +30,7 @@ const Transaction = (props) => {
 
   const handleChangeTransaction = (e) => {
     e.preventDefault();
-    props.handleShowChangeForm(true);
+    props.handleSetDataForChangeForm(true, circulation);
   };
 
   return (

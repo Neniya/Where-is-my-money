@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { handleAddUserCirculation } from '../actions/userCirculations';
 
@@ -23,6 +23,17 @@ const NewTransaction = (props) => {
   );
   const [accountId, setAccountId] = useState(transactionData.accountId);
   const [accountName, setAccountName] = useState(transactionData.accountName);
+  useEffect(() => {
+    setSum(transactionData.sum);
+    setDate(transactionData.date);
+    setCostItemID(transactionData.costItemId);
+    setCostItemName(transactionData.costItemName);
+    setNotes(transactionData.notes);
+    setCurrencyId(transactionData.currencyId);
+    setCurrencyName(transactionData.currencyName);
+    setAccountId(transactionData.accountId);
+    setAccountName(transactionData.accountName);
+  }, [props]);
 
   const handleSetCostItem = (e) => {
     setCostItemID(e.target.value);
