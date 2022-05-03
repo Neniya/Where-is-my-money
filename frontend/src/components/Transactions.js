@@ -58,6 +58,7 @@ const Transactions = (props) => {
       currencyName: circulation.currency,
       accountId: circulation.account_id,
       accountName: circulation.account,
+      id: circulation.id,
     });
     setShowChangeForm(showForm);
   };
