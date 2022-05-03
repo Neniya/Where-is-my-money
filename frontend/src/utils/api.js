@@ -111,6 +111,24 @@ export const postData = async (url = '', data = {}) => {
   }
 };
 
+export const changeCirculation = async (id, data = {}) => {
+  const response = await fetch(`${api}/circulations/${id}`, {
+    method: 'PATCH',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  try {
+    const newData = await response.json();
+    return newData;
+  } catch (error) {
+    console.log('error', error);
+  }
+};
+
 //delete circulation by id
 export const deleteCirculation = async (userId, circulationId) => {
   const response = await fetch(
