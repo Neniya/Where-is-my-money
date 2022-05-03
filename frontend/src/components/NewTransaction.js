@@ -81,6 +81,7 @@ const NewTransaction = (props) => {
     if (formType === 'Change') {
       circulation.id = transactionData.id;
       dispatch(handleChangeUserCirculation(circulation));
+      props.handleShowChangeForm(false);
     } else {
       dispatch(handleAddUserCirculation(circulation));
     }
