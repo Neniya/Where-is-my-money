@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { handleAddUserCirculation } from '../actions/userCirculations';
+import {
+  handleAddUserCirculation,
+  handleChangeUserCirculation,
+} from '../actions/userCirculations';
 
 import './NewTransaction.css';
 
@@ -75,7 +78,12 @@ const NewTransaction = (props) => {
       account: accountName,
     };
 
-    dispatch(handleAddUserCirculation(circulation));
+    if (formType === 'Change') {
+      circulation.id = transactionData.id;
+      dispatch(handleChangeUserCirculation(circulation));
+    } else {
+      dispatch(handleAddUserCirculation(circulation));
+    }
 
     setSum(0.01);
     setDate('');
