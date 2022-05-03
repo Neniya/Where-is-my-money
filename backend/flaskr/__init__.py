@@ -376,6 +376,7 @@ def create_app(test_config=None):
 
             return jsonify({
                 'success': True,
+                'date': circulation.date_time.strftime("%d.%m.%Y, %H:%M"), 
                 'circulation_id': circulation_id
             }), 200
         except Exception:
