@@ -128,7 +128,9 @@ const Transactions = (props) => {
                     </div>
                     <div className="header_cell"> </div>
                     <div className=" header_cell sum_cell_day">
-                      {`-${calcDaySpendingSum(transactionsByDate[date])} €`}
+                      {`-${calcDaySpendingSum(transactionsByDate[date]).toFixed(
+                        2
+                      )} €`}
                     </div>
                   </div>
                   <div>
