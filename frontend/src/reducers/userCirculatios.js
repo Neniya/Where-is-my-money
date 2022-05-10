@@ -8,7 +8,7 @@ import {
 export default function userCirculations(state = [], action) {
   switch (action.type) {
     case GET_USER_CIRCULATIONS:
-      return [...state, ...action.circulations];
+      return [...action.circulations];
     case ADD_USER_CIRCULATION:
       return [...state, action.circulation];
     case DELETE_USER_CIRCULATION:
